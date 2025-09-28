@@ -12,3 +12,9 @@ This is a simple job portal application built using React, Node.js, and MongoDB.
 6. Recruiters can post jobs for their assigned companies and view applicants for their posted jobs.
 7. Recruiters can update the status of applicants (e.g., interview, rejected, accepted).
 8. Users can view the status of their job applications.
+
+### Steps
+
+1. Initial Cleanup --done
+2. Git Initialization --done
+3. Tailwind CSS Integration --done
