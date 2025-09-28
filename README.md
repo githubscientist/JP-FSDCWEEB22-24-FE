@@ -18,3 +18,4 @@ This is a simple job portal application built using React, Node.js, and MongoDB.
 1. Initial Cleanup --done
 2. Git Initialization --done
 3. Tailwind CSS Integration --done
+4. React Router Setup --in progress
