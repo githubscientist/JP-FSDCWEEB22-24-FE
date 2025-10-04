@@ -6,15 +6,28 @@ import Login from "./pages/Login";
 import UserDashboard from "./pages/UserDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import RecruiterDashboard from "./pages/RecruiterDashboard";
+import { ToastContainer } from "react-toastify";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import authLoader from "./loaders/authLoader";
+import { adminLoader, recruiterLoader, userLoader } from "./loaders/roleLoaders";
 
 const routes = [
   {
     path: "/",
-    element: <Home />
+    element: <Home />,
+    loader: authLoader,
+    hydrateFallbackElement: <div className="flex items-center justify-center min-h-screen">
+      <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+    </div>
   },
   {
     path: "/job/:jobId",
-    element: <JobDetails />
+    element: <JobDetails />,
+    loader: authLoader,
+    hydrateFallbackElement: <div className="flex items-center justify-center min-h-screen">
+      <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+    </div>
   },
   {
     path: "/register",
@@ -26,15 +39,27 @@ const routes = [
   },
   {
     path: "/dashboard",
-    element: <UserDashboard />
+    element: <UserDashboard />,
+    loader: userLoader,
+    hydrateFallbackElement: <div className="flex items-center justify-center min-h-screen">
+      <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+    </div>
   },
   {
     path: "/admin/dashboard",
-    element: <AdminDashboard />
+    element: <AdminDashboard />,
+    loader: adminLoader,
+    hydrateFallbackElement: <div className="flex items-center justify-center min-h-screen">
+      <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+    </div>
   },
   {
     path: "/recruiter/dashboard",
-    element: <RecruiterDashboard />
+    element: <RecruiterDashboard />,
+    loader: recruiterLoader,
+    hydrateFallbackElement: <div className="flex items-center justify-center min-h-screen">
+      <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+    </div>
   }
 ];
 
@@ -49,12 +74,28 @@ const router = createBrowserRouter(routes, {
 });
 
 const App = () => {
-  return <RouterProvider
-    router={router}
-    future={{
-      v7_startTransition: true,
-    }}
-  />;
+  return (
+    <Provider store={store}>
+      <RouterProvider
+        router={router}
+        future={{
+          v7_startTransition: true,
+        }}
+      />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+    </Provider>
+  )
 }
 
 export default App;

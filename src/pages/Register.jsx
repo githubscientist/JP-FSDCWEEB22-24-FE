@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { toast } from "react-toastify";
+import { registerUser } from "../services/authServices";
 
 const Register = () => {
 
@@ -9,10 +11,32 @@ const Register = () => {
         password: ''
     });
 
-    const handleRegister = (e) => {
+    const navigate = useNavigate();
+
+    const handleRegister = async (e) => {
         e.preventDefault();
 
-        console.log(formData);
+        if (formData.password.length < 6) {
+            toast.error("Password must be at least 6 characters long");
+            return;
+        }
+
+        try {
+            const userData = {
+                name: formData.name,
+                email: formData.email,
+                password: formData.password
+            };
+
+            const response = await registerUser(userData);
+            toast.success(response.message);
+
+            // redirect the user to login page after successful registration
+            navigate("/login");
+        } catch (error) {
+            const errorMessage = error.response?.data?.message || "Registration failed. Please try again.";
+            toast.error(errorMessage);
+        }
     }
 
     return (
